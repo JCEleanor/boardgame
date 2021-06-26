@@ -144,16 +144,9 @@ require_once('./checkSession.php')
           
                 <label for="time" class="block text-sm font-medium text-gray-700">選擇分店</label>                
                 <select id="storeId" name="storeId" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                
-                <?php 
-                $sql = "SELECT `storeName`, `storeId` FROM `store`";
-                $res = $pdo->query($sql);
-                if ($res->rowCount() > 0) {
-                  $stores = $res->fetchAll();
-                  for ($i = 0; $i < count($stores); $i++){ ?>
+                  <option value="1">台北店</option>                
+                  <option value="1">台中店</option>                
 
-                    <option value= <?php echo $stores[$i]['storeId'] ?>><?php echo $stores[$i]['storeName'] ?></option>
-                    <?php }}?>
                 </select>
                   
               </div>
@@ -205,13 +198,10 @@ require_once('./checkSession.php')
 
 
 
-    <hr>
 
     <?php 
   require_once('../db.inc.php');
   $sql = "SELECT * FROM `reservations` 
-          JOIN `store` 
-          ON `reservations`.`storeId` = `store`.`storeId` 
           WHERE `memberId` = ? 
           ORDER BY date ASC";
 
@@ -223,8 +213,8 @@ require_once('./checkSession.php')
 
     ?>
 
-    <h1>我的預約</h1>
-    <h2>總計 <?php echo count($arr); ?> 筆預約</h2>
+    <h1 class="text-center m-5 text-4xl	font-bold	">我的預約</h1>
+    <h2 class="text-center">總計 <span class="text-blue-700"><?php echo count($arr); ?></span> 筆預約</h2>
 
     
 <div class="my-5 2xl:mx-50 xl:mx-50 md:mx-20 sm:mx-10 shadow overflow-hidden sm:rounded-md">
@@ -261,9 +251,10 @@ require_once('./checkSession.php')
           <div class="px-3 py-5 "><?php echo $arr[$i]['startTime']  ?> :00</div>
           <div class="px-3 py-5 "><?php echo $arr[$i]['duration']  ?></div>
           <div class="px-3 py-5 "><?php
-
-            echo $arr[$i]['storeName'] 
-           
+          if($arr[$i]['storeId']%2 === 1) {
+            echo '台北店'; } else {
+                echo "台中店";
+            }
            ?></div>
           <div class="px-3 py-5 "><?php echo $arr[$i]['numberOfPeople']  ?></div>
           <div class="px-3 py-5 "><?php echo $arr[$i]['priceEstimated']  ?></div>
