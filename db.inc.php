@@ -1,8 +1,8 @@
 <?php
 //資料庫主機設定
-$db_host = "localhost";
-$db_username = "test";
-$db_password = "T1st@localhost";
+$db_host = "127.0.0.1:3306";
+$db_username = "root";
+$db_password = "Tiffany2266";
 $db_name = "boardgame";
 $db_charset = "utf8mb4";
 $db_collate = "utf8mb4_unicode_ci";
